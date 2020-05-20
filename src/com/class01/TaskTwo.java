@@ -3,6 +3,14 @@ package com.class01;
 import org.testng.annotations.*;
 
 public class TaskTwo {
+	
+	/*@BeforeMethod – Pre-condition for every Test case in a Class/Program
+	@AfterMethod Post-condition for every Test case in a Class/Program
+	@BeforeClass -Pre-condition for All Test cases in a Class/Program
+	@AfterClasee -Post-condition for All Test cases in a Class/Program
+	*/
+	
+	
 	@BeforeClass
 	public void beforeClass() {
 		System.out.println("This is before class");
