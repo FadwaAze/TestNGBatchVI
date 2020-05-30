@@ -5,11 +5,15 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 public class BaseClass {
 
 	public static WebDriver driver;
 	
+	
+	@BeforeMethod // to make this method run before every @Test Method
 	public static WebDriver setUp() {//WebDriver
 		
 		ConfigsReader.readProprties(Constants.CONFIGURATION_FILEPATH);
@@ -32,9 +36,14 @@ public class BaseClass {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
 		driver.get(ConfigsReader.getProperty("url"));
+		
+		
+		//initialize all page objects as part of the setup
+		PageInitializer.initialize();
 		return driver;
 	}
 	
+	@AfterMethod// this method to run after every @Test method
 	public static void tearDown() {
 		if(driver!=null) {
 			driver.quit();

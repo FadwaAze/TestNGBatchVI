@@ -1,19 +1,24 @@
 package com.utils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchFrameException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CommonMethods extends BaseClass {
+public class CommonMethods extends PageInitializer {
 	/**
 	 * Method that clears and send keys
 	 * 
@@ -257,6 +262,24 @@ public class CommonMethods extends BaseClass {
 		getJSObject().executeScript("window.scrollBy(0,-" + pixel + ")");
 	}
 
+	/**
+	 * This Method will take a screenshot
+	 * @param folderName
+	 
+	 */
+	public static void takeScreenShot(String fileName) {
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File File = ts.getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(File, new File("ScreenShots/" + fileName + "/" + ".png"));
+		} catch (IOException ex) {
+			System.out.println("Cannot take screenshot!");
+			ex.printStackTrace();
+		}
+	}
+
+	
+	
 	public static void wait(int second) {
 
 		try {
@@ -265,12 +288,5 @@ public class CommonMethods extends BaseClass {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }
